@@ -1,4 +1,4 @@
-# star-trek-lcars-dashboard-Noe-Portfolio
+<div align="center"> # star-trek-lcars-dashboard-Noe-Portfolio
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
 <div align="center">
 <br />
