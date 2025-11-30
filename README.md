@@ -11,9 +11,7 @@
 
 <div align="center"> Text Place Holder
 <p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://drive.google.com/file/d/1F_f5zBD3rEeEMkkqLJV_BL4aO_Gia3kC/view" />
-  </a>
+ 
 </p>
 This application allows you to quickly view and export Windows Event Logs into a readable HTML report.
 It was designed to simplify log analysis for system administrators and technicians by giving quick access
