@@ -1,4 +1,4 @@
-<div align="center"> # star-trek-lcars-dashboard-Noe-Portfolio
+# star-trek-lcars-dashboard-Noe-Portfolio
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
 <div align="center">
 <br />
@@ -9,8 +9,7 @@
 
 <br />
 
-<img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
-Text Place Holder
+<div align="center"> Text Place Holder
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://drive.google.com/file/d/1F_f5zBD3rEeEMkkqLJV_BL4aO_Gia3kC/view" />
