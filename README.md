@@ -1,7 +1,7 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
 <div align="center">
 <br />
-<img width="2100" height="620" alt="tasktrove-banner" src="https://github.com/noetovar5/portfolio/blob/main/Star%20Trek%20Theme%20Portfolio.jpg" />
+<img width="2100" height="720" alt="tasktrove-banner" src="https://github.com/noetovar5/portfolio/blob/main/Star%20Trek%20Theme%20Portfolio.jpg" />
 <br />
 SSFCU-DRinfo-
 <img width="2100" height="620" alt="tasktrove-banner" src="https://github.com/noetovar5/portfolio/blob/main/Data%20back-up%20and%20Distaster%20recovery.webp?raw=true" />
