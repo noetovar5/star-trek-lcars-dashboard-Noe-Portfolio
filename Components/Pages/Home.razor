@@ -1,0 +1,343 @@
+﻿@page "/"
+@using Microsoft.JSInterop
+@using DailyDashboard.Services
+@inject IEmailService EmailService
+@inject IJSRuntime JS
+
+<h1 class="sr-only">Noe Tovar-MBA Portfolio</h1>
+
+<div class="dashboard-grid">
+
+    <!-- LEFT COLUMN -->
+    <section class="lcars-column lcars-column-left">
+
+        <!-- PRIMARY LINKS -->
+        <div class="lcars-block-title">Primary Links</div>
+
+        @foreach (var link in PrimaryLinks)
+        {
+            <a class="lcars-button lcars-color-a"
+               href="@link.Url"
+               target="_blank"
+               rel="noopener noreferrer"
+               onclick="lcarsBeep()">
+                <span class="lcars-button-icon">@link.Icon</span>
+                <span class="lcars-button-label">@link.Label</span>
+            </a>
+        }
+
+        <!-- SECONDARY LINKS -->
+        <div class="lcars-block-title">Secondary Links</div>
+
+        @foreach (var link in SecondaryLinks)
+        {
+            <a class="lcars-button lcars-color-b"
+               href="@link.Url"
+               target="_blank"
+               rel="noopener noreferrer"
+               onclick="lcarsBeep()">
+                <span class="lcars-button-icon">@link.Icon</span>
+                <span class="lcars-button-label">@link.Label</span>
+            </a>
+        }
+
+        <!-- RESOURCE MONITOR -->
+        <div class="lcars-resource-panel">
+            <div class="lcars-block-title">LCARS Resource Monitor</div>
+
+            <div class="resource-summary">
+                <div>• CPU: 12× Virtual Core at 3.20 GHz</div>
+                <div>• RAM: 16GB total • 6GB used • 10GB free</div>
+                <div>• IP Address: <span class="resource-ip">@clientIp</span></div>
+            </div>
+
+            <div class="resource-bars">
+                <div class="resource-bar"><div class="resource-bar-fill cpu"></div></div>
+                <div class="resource-bar"><div class="resource-bar-fill ram"></div></div>
+                <div class="resource-bar"><div class="resource-bar-fill swap"></div></div>
+                <div class="resource-bar"><div class="resource-bar-fill disk"></div></div>
+            </div>
+
+            <div class="resource-bar-labels">
+                <span>CPU</span><span>RAM</span><span>SWAP</span><span>DISK</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CENTER COLUMN -->
+    <section class="lcars-column lcars-column-center">
+
+        <!-- TRAINING TUTORIALS -->
+        <div class="lcars-block-title">Free Training Tutorials</div>
+
+        @foreach (var link in TutorialLinks)
+        {
+            <a class="lcars-button lcars-color-c"
+               href="@link.Url"
+               target="_blank"
+               rel="noopener noreferrer"
+               onclick="lcarsBeep()">
+                <span class="lcars-button-icon">@link.Icon</span>
+                <span class="lcars-button-label">@link.Label</span>
+            </a>
+        }
+
+        <!-- PLAYLIST -->
+        <div class="lcars-block-title lcars-block-title-secondary">
+            Linux &amp; Cloud Playlist
+        </div>
+
+        <div class="playlist-container">
+            @foreach (var video in TrainingVideos)
+            {
+                <a class="playlist-item"
+                   href="@video.Url"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   onclick="lcarsBeep()">
+                    <span class="playlist-dot">◆</span>
+                    <span class="playlist-title">@video.Title</span>
+                </a>
+            }
+        </div>
+
+        <!-- ⭐ CONTACT FORM (manual validation, backend email) -->
+        <div class="contact-panel">
+            <div class="lcars-block-title">Contact Me</div>
+
+            <form @formname="contactForm" @onsubmit="HandleSubmit">
+                @if (!string.IsNullOrEmpty(validationMessage))
+                {
+                    <p class="contact-status">@validationMessage</p>
+                }
+
+                <div class="contact-field">
+                    <label for="name">Name</label>
+                    <input id="name"
+                           class="contact-input"
+                           @bind="contactModel.Name" />
+                </div>
+
+                <div class="contact-field">
+                    <label for="email">Email</label>
+                    <input id="email"
+                           class="contact-input"
+                           @bind="contactModel.Email" />
+                </div>
+
+                <div class="contact-field">
+                    <label for="subject">Subject</label>
+                    <input id="subject"
+                           class="contact-input"
+                           @bind="contactModel.Subject" />
+                </div>
+
+                <div class="contact-field">
+                    <label for="message">Message</label>
+                    <textarea id="message"
+                              class="contact-textarea"
+                              @bind="contactModel.Message">
+                    </textarea>
+                </div>
+
+                <button type="submit"
+                        class="lcars-button lcars-color-d contact-submit"
+                        disabled="@isSending">
+                    <span class="lcars-button-icon">✉️</span>
+                    <span class="lcars-button-label">
+                        @(isSending ? "Sending..." : "Send Message")
+                    </span>
+                </button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(submitMessage))
+            {
+                <p class="contact-status">@submitMessage</p>
+            }
+        </div>
+    </section>
+
+
+    <!-- RIGHT COLUMN -->
+    <section class="lcars-column lcars-column-right">
+
+        <!-- FEATURED VIDEO -->
+        <div class="lcars-video-panel">
+            <div class="lcars-block-title">Featured Video of the Week</div>
+
+            @if (FeaturedVideo is not null)
+            {
+                <iframe width="100%" height="250"
+                        src="@GetEmbedUrl(FeaturedVideo.YouTubeId)"
+                        frameborder="0"
+                        allowfullscreen>
+                </iframe>
+            }
+        </div>
+
+        <!-- GENERAL VIDEO FEED -->
+        <div class="lcars-video-panel">
+            <div class="lcars-block-title">Video Feed</div>
+
+            <iframe width="100%" height="250"
+                    src="https://www.youtube.com/embed/TepWfVIaWv8?si=4IzgyRHiOHWctNrs"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+</div>
+
+@code {
+    // MODELS ------------------------------------------------------------------
+
+    public class DashboardLink
+    {
+        public string Label { get; set; } = "";
+        public string Url { get; set; } = "";
+        public string Icon { get; set; } = "●";
+    }
+
+    public class TrainingVideo
+    {
+        public string Title { get; set; } = "";
+        public string Url { get; set; } = "";
+        public string YouTubeId { get; set; } = "";
+    }
+
+    public class ContactModel
+    {
+        public string Name { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Subject { get; set; } = "";
+        public string Message { get; set; } = "";
+    }
+
+    // DATA --------------------------------------------------------------------
+
+    private List<DashboardLink> PrimaryLinks = new()
+    {
+        new DashboardLink { Label = "BOOKS",           Url = "https://books.tovartech.org/", Icon = "📘" },
+        new DashboardLink { Label = "YouTube Channel", Url = "https://youtube.com/@noetovar5", Icon = "▶️" },
+        new DashboardLink { Label = "GitHub",          Url = "https://github.com/noetovar5", Icon = "🐙" }
+    };
+
+    private List<DashboardLink> SecondaryLinks = new()
+    {
+        new DashboardLink { Label = "LinkedIn",             Url = "https://www.linkedin.com/in/noe-tovar-mba", Icon = "💼" },
+        new DashboardLink { Label = "Credentials",          Url = "https://skillsoft.digitalbadges.skillsoft.com/profile/noetovar322053/wallet",                  Icon = "☁️" },
+        new DashboardLink { Label = "Mastering Linux Book", Url = "https://a.co/d/01gMyfN",                    Icon = "📙" },
+        new DashboardLink { Label = "Mastering SoftSkills", Url = "https://a.co/d/fQ3GR4D",                    Icon = "📘" },
+        new DashboardLink { Label = "Cloud Computing",      Url = "https://a.co/d/dBVRgyp",                    Icon = "☁️" }
+    };
+
+    private List<DashboardLink> TutorialLinks = new()
+    {
+        new DashboardLink {
+            Label = "Linux Tutorial",
+            Url   = "https://www.linkedin.com/pulse/setting-up-apache-cloud-webserver-noe-tovar-mba-noe-tovar-mba-uiote/",
+            Icon  = "🐧"
+        },
+        new DashboardLink {
+            Label = "XMPie Resources",
+            Url   = "https://www.xmpie.com",
+            Icon  = "🖨️"
+        }
+    };
+
+    private List<TrainingVideo> TrainingVideos = new()
+    {
+        new TrainingVideo {
+            Title = "Featured: Star Trek LCARS Blazor Dashboard Tour",
+            Url   = "https://www.youtube.com/watch?v=O-pJlMvmOlw",
+            YouTubeId = "O-pJlMvmOlw"
+        },
+        new TrainingVideo {
+            Title = "Linux & Apache Cloud Webserver Tutorial",
+            Url   = "https://www.youtube.com/watch?v=TepWfVIaWv8",
+            YouTubeId = "TepWfVIaWv8"
+        }
+    };
+
+    private TrainingVideo? FeaturedVideo;
+
+    // CONTACT STATE -----------------------------------------------------------
+
+    private ContactModel contactModel = new();
+    private bool isSending = false;
+    private string? submitMessage;
+    private string? validationMessage;
+
+    // IP / INITIALIZATION -----------------------------------------------------
+
+    private string clientIp = "Detecting...";
+
+    protected override void OnInitialized()
+    {
+        var week = System.Globalization.ISOWeek.GetWeekOfYear(DateTime.Today);
+        FeaturedVideo = TrainingVideos[week % TrainingVideos.Count];
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        try
+        {
+            clientIp = await JS.InvokeAsync<string>("getClientIp");
+        }
+        catch
+        {
+            clientIp = "Unavailable";
+        }
+
+        StateHasChanged();
+    }
+
+    // CONTACT SUBMIT ----------------------------------------------------------
+
+    private async Task HandleSubmit()
+    {
+        // prevent default HTML submit navigation
+        // (Blazor automatically prevents default for @onsubmit handlers)
+
+        validationMessage = string.Empty;
+        submitMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(contactModel.Name) ||
+            string.IsNullOrWhiteSpace(contactModel.Email) ||
+            string.IsNullOrWhiteSpace(contactModel.Subject) ||
+            string.IsNullOrWhiteSpace(contactModel.Message))
+        {
+            validationMessage = "All fields are required. Please complete the form.";
+            return;
+        }
+
+        isSending = true;
+
+        try
+        {
+            await EmailService.SendContactAsync(
+                contactModel.Name,
+                contactModel.Email,
+                $"Portfolio Contact: {contactModel.Subject}",
+                contactModel.Message);
+
+            submitMessage = "Your message has been sent successfully!";
+            contactModel = new ContactModel(); // clear the form
+        }
+        catch (Exception ex)
+        {
+            submitMessage = $"Error sending message: {ex.Message}";
+        }
+        finally
+        {
+            isSending = false;
+        }
+    }
+
+    // HELPERS -----------------------------------------------------------------
+
+    private string GetEmbedUrl(string id) => $"https://www.youtube.com/embed/{id}";
+}

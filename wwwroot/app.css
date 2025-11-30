@@ -1,0 +1,863 @@
+/* ===== Global layout ===== */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000;
+    color: #fdf4ff;
+}
+
+.app-root {
+    min-height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 1.5rem;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+}
+
+/* Outer LCARS frame */
+
+.lcars-frame {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 600px;
+    background-color: #000;
+    border-radius: 24px;
+    padding: 1rem 1.5rem 0.75rem;
+    box-shadow: 0 0 25px rgba(255, 184, 108, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: box-shadow 0.25s ease;
+}
+
+/* ===== LCARS header ===== */
+
+.lcars-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+}
+
+.lcars-header-left,
+.lcars-header-right {
+    background: linear-gradient(90deg, #f6a623, #f66d9b);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(246, 166, 35, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lcars-header-center {
+    flex: 1;
+    text-align: center;
+    background: linear-gradient(90deg, #6e5dd4, #f6a623);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    box-shadow: 0 0 14px rgba(110, 93, 212, 0.7);
+}
+
+/* ===== Blinking LCARS strip ===== */
+
+.lcars-blink-strip {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.15rem;
+}
+
+.lcars-blink-segment {
+    height: 10px;
+    border-radius: 999px;
+    flex: 1;
+    background-color: #f6a623;
+    box-shadow: 0 0 10px rgba(246, 166, 35, 0.8);
+    animation: lcarsBlink 1.8s infinite ease-in-out;
+}
+
+.lcars-blink-segment.segment-a { animation-delay: 0s; }
+.lcars-blink-segment.segment-b { animation-delay: 0.3s; }
+.lcars-blink-segment.segment-c { animation-delay: 0.6s; }
+
+@keyframes lcarsBlink {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(246, 166, 35, 0.8);
+    }
+    40% {
+        opacity: 0.3;
+        box-shadow: 0 0 3px rgba(246, 166, 35, 0.2);
+    }
+    60% {
+        opacity: 0.7;
+        box-shadow: 0 0 12px rgba(246, 166, 35, 0.9);
+    }
+}
+
+/* ===== LCARS Ticker ===== */
+
+.lcars-ticker {
+    height: 20px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f6a623, #f66d9b);
+    box-shadow: 0 0 12px rgba(246, 166, 35, 0.6);
+    padding-inline: 0.4rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #111;
+}
+
+.lcars-ticker-track {
+    display: inline-block;
+    white-space: nowrap;
+    animation: lcarsTicker 18s linear infinite;
+}
+
+@keyframes lcarsTicker {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ===== Red Alert Toggle ===== */
+
+.red-alert-toggle {
+    background: transparent;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.25rem 0.7rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #fff;
+    cursor: pointer;
+}
+
+.red-alert-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Main content layout ===== */
+
+.lcars-main {
+    flex: 1;
+    display: flex;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.1fr 1.2fr;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.lcars-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lcars-column-left,
+.lcars-column-center {
+    border-right: 4px solid #f6a623;
+    padding-right: 0.5rem;
+}
+
+/* Column titles */
+
+.lcars-block-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #ffdf9b;
+    margin-bottom: 0.25rem;
+}
+
+.lcars-block-title-secondary {
+    color: #9fc5f8;
+}
+
+/* ===== LCARS buttons ===== */
+
+.lcars-button {
+    position: relative;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.45rem 0.75rem;
+    margin-bottom: 0.3rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.78rem;
+    cursor: pointer;
+    color: #111111;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.4),
+        0 0 18px rgba(255, 204, 128, 0.7);
+    transition:
+        transform 0.08s ease-out,
+        box-shadow 0.08s ease-out,
+        filter 0.08s ease-out;
+    text-decoration: none;
+}
+
+.lcars-button.small {
+    width: auto;
+    align-self: flex-start;
+    padding-inline: 1rem;
+}
+
+.lcars-button::after {
+    content: "";
+    width: 16%;
+    height: 70%;
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, 0.12);
+    margin-left: auto;
+}
+
+.lcars-button-icon {
+    font-size: 0.95rem;
+}
+
+.lcars-button-label {
+    flex: 1;
+}
+
+.lcars-button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.15),
+        0 0 24px rgba(255, 241, 188, 0.95);
+}
+
+.lcars-button:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.4),
+        0 0 12px rgba(255, 204, 128, 0.6);
+}
+
+/* Color variants */
+
+.lcars-color-a {
+    background: linear-gradient(90deg, #f6b26b, #f9a3c7);
+}
+
+.lcars-color-b {
+    background: linear-gradient(90deg, #f9a3c7, #9fc5f8);
+}
+
+.lcars-color-c {
+    background: linear-gradient(90deg, #9fc5f8, #b4a7d6);
+}
+
+.lcars-color-d {
+    background: linear-gradient(90deg, #f6a623, #ffdf9b);
+}
+
+/* ===== Right-side video + status panels ===== */
+
+.lcars-video-panel {
+    margin-top: 0.75rem;
+    padding: 0.6rem;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 194, 120, 0.15),
+        rgba(159, 197, 248, 0.08)
+    );
+    border-left: 5px solid #f6a623;
+    border-radius: 20px 20px 4px 20px;
+    box-shadow: 0 0 15px rgba(255, 200, 140, 0.2);
+}
+
+.lcars-video-panel iframe {
+    border-radius: 12px;
+    box-shadow: 0 0 18px rgba(110, 93, 212, 0.5);
+}
+
+/* Config/status helpers */
+
+.empty-text {
+    font-size: 0.78rem;
+    color: rgba(255, 223, 155, 0.65);
+    font-style: italic;
+}
+
+/* ===== Footer ===== */
+
+.lcars-footer {
+    border-top: 3px solid #f6a623;
+    padding-top: 0.45rem;
+    margin-top: 0.2rem;
+    font-size: 0.78rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    color: #ffdf9b;
+    text-align: center;
+}
+
+.lcars-footer a {
+    color: #9fc5f8;
+    text-decoration: none;
+}
+
+.lcars-footer a:hover {
+    text-decoration: underline;
+}
+
+.lcars-footer-datetime {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ffdf9b;
+}
+
+/* ===== Playlist + Now Playing ===== */
+
+.playlist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.3rem;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #ffdf9b;
+    background-color: rgba(10, 10, 20, 0.85);
+    box-shadow: 0 0 6px rgba(159, 197, 248, 0.35);
+}
+
+.playlist-item:hover {
+    background-color: rgba(246, 166, 35, 0.25);
+    box-shadow: 0 0 10px rgba(255, 241, 188, 0.7);
+}
+
+.playlist-dot {
+    font-size: 0.7rem;
+    color: #f6a623;
+}
+
+.playlist-title {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.now-playing-panel {
+    margin-top: 0.4rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 16px;
+    background: radial-gradient(circle at left, rgba(255, 223, 155, 0.45), transparent 60%),
+                rgba(7, 7, 18, 0.95);
+    box-shadow: 0 0 12px rgba(255, 223, 155, 0.35);
+}
+
+.now-playing-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #ffdf9b;
+    margin-bottom: 0.1rem;
+}
+
+.now-playing-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+    margin-bottom: 0.15rem;
+}
+
+.now-playing-description {
+    font-size: 0.75rem;
+    color: rgba(223, 233, 255, 0.9);
+}
+
+/* ===== System Status Panel ===== */
+
+.lcars-status-panel {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.7rem;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 194, 120, 0.12),
+        rgba(159, 197, 248, 0.06)
+    );
+    border-left: 5px solid #f6a623;
+    border-radius: 20px 20px 4px 20px;
+    box-shadow: 0 0 15px rgba(255, 200, 140, 0.2);
+    font-size: 0.78rem;
+}
+
+.status-row {
+    display: grid;
+    grid-template-columns: 64px 1fr 56px;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.status-label {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    color: #ffdf9b;
+}
+
+.status-bar {
+    position: relative;
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: rgba(5, 5, 12, 0.9);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.7);
+}
+
+.status-bar-uptime {
+    background-color: rgba(12, 20, 38, 0.9);
+}
+
+.status-bar-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    transform-origin: left center;
+}
+
+.status-bar-fill.cpu {
+    width: 32%;
+    background: linear-gradient(90deg, #9fc5f8, #b4a7d6);
+    animation: statusPulseCpu 2.2s ease-in-out infinite alternate;
+}
+
+.status-bar-fill.mem {
+    width: 68%;
+    background: linear-gradient(90deg, #f6a623, #f66d9b);
+    animation: statusPulseMem 3s ease-in-out infinite alternate;
+}
+
+.status-bar-fill.net {
+    width: 55%;
+    background: linear-gradient(90deg, #a4e9c2, #9fc5f8);
+    animation: statusPulseNet 2.6s ease-in-out infinite alternate;
+}
+
+.status-bar-fill.up {
+    width: 90%;
+    background: linear-gradient(90deg, #ffdf9b, #ffffff);
+    animation: statusPulseUp 4s ease-in-out infinite alternate;
+}
+
+.status-value {
+    text-align: right;
+    font-size: 0.7rem;
+    color: #e9f0ff;
+}
+
+@keyframes statusPulseCpu {
+    0% { filter: brightness(0.9); }
+    100% { filter: brightness(1.3); }
+}
+
+@keyframes statusPulseMem {
+    0% { filter: brightness(0.95); }
+    100% { filter: brightness(1.35); }
+}
+
+@keyframes statusPulseNet {
+    0% { filter: brightness(0.9); }
+    100% { filter: brightness(1.25); }
+}
+
+@keyframes statusPulseUp {
+    0% { filter: brightness(1.0); }
+    100% { filter: brightness(1.4); }
+}
+
+/* ===== Startup overlay ===== */
+
+.lcars-startup-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(246, 166, 35, 0.4), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(159, 197, 248, 0.3), transparent 55%),
+                rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: lcarsStartupFade 2.6s ease-out 0.2s forwards;
+    pointer-events: none;
+}
+
+.lcars-startup-panel {
+    padding: 1.2rem 1.8rem;
+    border-radius: 24px;
+    border-left: 6px solid #f6a623;
+    background: linear-gradient(135deg, rgba(15, 15, 35, 0.95), rgba(15, 10, 40, 0.95));
+    box-shadow: 0 0 24px rgba(255, 204, 128, 0.7);
+    text-align: left;
+}
+
+.startup-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ffdf9b;
+    margin-bottom: 0.35rem;
+}
+
+.startup-subtitle {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9fc5f8;
+    margin-bottom: 0.5rem;
+}
+
+.startup-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f6a623, #f66d9b, #9fc5f8);
+    margin-bottom: 0.55rem;
+    animation: lcarsStartupBar 1.2s ease-in-out infinite alternate;
+}
+
+.startup-text {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fdf4ff;
+}
+
+@keyframes lcarsStartupFade {
+    0% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.98);
+        visibility: hidden;
+    }
+}
+
+@keyframes lcarsStartupBar {
+    0% {
+        filter: brightness(1);
+        box-shadow: 0 0 8px rgba(255, 204, 128, 0.5);
+    }
+    100% {
+        filter: brightness(1.4);
+        box-shadow: 0 0 16px rgba(255, 241, 188, 0.9);
+    }
+}
+
+/* ===== Accessibility helper ===== */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ===== Red Alert Mode overrides ===== */
+
+.app-root.red-alert {
+    background-color: #1a0000;
+}
+
+.app-root.red-alert .lcars-frame {
+    box-shadow: 0 0 35px rgba(255, 0, 0, 0.8);
+}
+
+.app-root.red-alert .lcars-header-left,
+.app-root.red-alert .lcars-header-right {
+    background: linear-gradient(90deg, #ff0000, #ff6600);
+    box-shadow: 0 0 16px rgba(255, 0, 0, 0.95);
+}
+
+.app-root.red-alert .lcars-header-center {
+    background: linear-gradient(90deg, #660000, #ff0000);
+    box-shadow: 0 0 18px rgba(255, 0, 0, 0.9);
+}
+
+.app-root.red-alert .lcars-blink-segment {
+    background-color: #ff0000;
+    box-shadow: 0 0 16px rgba(255, 0, 0, 0.9);
+}
+
+.app-root.red-alert .lcars-ticker {
+    background: linear-gradient(90deg, #ff0000, #ff6600);
+    box-shadow: 0 0 16px rgba(255, 0, 0, 0.9);
+}
+
+.app-root.red-alert .lcars-button {
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(255, 0, 0, 0.85);
+}
+
+.app-root.red-alert .lcars-video-panel,
+.app-root.red-alert .lcars-status-panel {
+    box-shadow: 0 0 22px rgba(255, 0, 0, 0.7);
+    border-left-color: #ff0000;
+}
+
+.app-root.red-alert .lcars-footer {
+    border-top-color: #ff0000;
+}
+
+/* ===== Responsive tweaks ===== */
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lcars-column-left,
+    .lcars-column-center {
+        border-right: none;
+        border-bottom: 4px solid #f6a623;
+        padding-right: 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .lcars-frame {
+        padding: 0.75rem;
+    }
+}
+.ip-display {
+    margin-top: 0.3rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    background-color: rgba(7, 7, 18, 0.95);
+    box-shadow: 0 0 10px rgba(159, 197, 248, 0.45);
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #ffdf9b;
+}
+/* ===== LCARS Resource Monitor (left column) ===== */
+
+.lcars-resource-panel {
+    margin-top: 0.75rem;
+    padding: 0.55rem 0.7rem 0.7rem;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 194, 120, 0.16),
+        rgba(159, 197, 248, 0.08)
+    );
+    border-left: 5px solid #f6a623;
+    border-radius: 20px 20px 4px 20px;
+    box-shadow: 0 0 16px rgba(255, 200, 140, 0.35);
+    font-size: 0.78rem;
+}
+
+.resource-summary {
+    margin-top: 0.2rem;
+    line-height: 1.4;
+    color: #ffdf9b;
+}
+
+.resource-summary div {
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+}
+
+.resource-ip {
+    color: #9fc5f8;
+    font-weight: 600;
+}
+
+/* vertical bar group */
+
+.resource-bars {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    height: 82px;
+}
+
+.resource-bar {
+    flex: 1;
+    background-color: #07070f;
+    border-radius: 8px 8px 2px 2px;
+    border: 1px solid rgba(0, 0, 0, 0.9);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.resource-bar-fill {
+    width: 100%;
+    border-radius: 6px 6px 2px 2px;
+    transform-origin: bottom center;
+}
+
+/* fake levels approximating the screenshot */
+
+.resource-bar-fill.cpu {
+    height: 63%;
+    background: linear-gradient(180deg, #f6b26b, #f66d9b);
+    animation: resPulseCpu 2.3s ease-in-out infinite alternate;
+}
+
+.resource-bar-fill.ram {
+    height: 37%;
+    background: linear-gradient(180deg, #f9a3c7, #9fc5f8);
+    animation: resPulseRam 2.8s ease-in-out infinite alternate;
+}
+
+.resource-bar-fill.swap {
+    height: 47%;
+    background: linear-gradient(180deg, #b4a7d6, #9fc5f8);
+    animation: resPulseSwap 3.1s ease-in-out infinite alternate;
+}
+
+.resource-bar-fill.disk {
+    height: 52%;
+    background: linear-gradient(180deg, #f6a623, #f9a3c7);
+    animation: resPulseDisk 3.4s ease-in-out infinite alternate;
+}
+
+.resource-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #ffdf9b;
+}
+
+/* Subtle LCARS pulsing like the reference image */
+
+@keyframes resPulseCpu {
+    0% { filter: brightness(0.9); }
+    100% { filter: brightness(1.3); }
+}
+
+@keyframes resPulseRam {
+    0% { filter: brightness(0.95); }
+    100% { filter: brightness(1.25); }
+}
+
+@keyframes resPulseSwap {
+    0% { filter: brightness(0.95); }
+    100% { filter: brightness(1.28); }
+}
+
+@keyframes resPulseDisk {
+    0% { filter: brightness(0.9); }
+    100% { filter: brightness(1.3); }
+}
+/* ===== Contact Panel  this adds the css styling to the contact form i added===== */
+
+.contact-panel {
+    margin-top: 1rem;
+    padding: 0.7rem 0.8rem 0.8rem;
+    background: linear-gradient(
+        180deg,
+        rgba(159, 197, 248, 0.12),
+        rgba(255, 194, 120, 0.08)
+    );
+    border-left: 5px solid #9fc5f8;
+    border-radius: 20px 20px 4px 20px;
+    box-shadow: 0 0 16px rgba(159, 197, 248, 0.3);
+    font-size: 0.8rem;
+}
+
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: 0.4rem;
+}
+
+.contact-field label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #ffdf9b;
+}
+
+.contact-input,
+.contact-textarea {
+    border-radius: 999px;
+    border: 1px solid rgba(159, 197, 248, 0.5);
+    background-color: rgba(3, 3, 10, 0.95);
+    color: #ffffff;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.contact-textarea {
+    border-radius: 14px;
+    min-height: 70px;
+    resize: vertical;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+    box-shadow: 0 0 10px rgba(159, 197, 248, 0.9);
+}
+
+.contact-submit {
+    margin-top: 0.4rem;
+    align-self: flex-start;
+}
+
+.contact-status {
+    margin-top: 0.35rem;
+    font-size: 0.75rem;
+    color: #ffdf9b;
+}

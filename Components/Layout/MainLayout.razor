@@ -1,0 +1,128 @@
+﻿@inherits LayoutComponentBase
+@implements IDisposable
+@inject IJSRuntime JS
+
+<div class="app-root @(isRedAlert ? "red-alert" : "")">
+
+    <!-- LCARS STARTUP OVERLAY -->
+    <div class="lcars-startup-overlay">
+        <div class="lcars-startup-panel">
+            <div class="startup-title">LCARS INTERFACE</div>
+            <div class="startup-subtitle">INITIALIZING STARFLEET SYSTEMS</div>
+            <div class="startup-bar"></div>
+            <div class="startup-text">Noe Tovar-MBA Portfolio Dashboard</div>
+        </div>
+    </div>
+
+    <div class="lcars-frame">
+        <header class="lcars-header">
+            <span class="lcars-header-left">U.S.S. NOE • NCC-2025</span>
+
+            <!-- ⭐ UPDATED TITLE ⭐ -->
+            <span class="lcars-header-center">
+                NOE TOVAR-MBA PORTFOLIO
+            </span>
+
+            <span class="lcars-header-right">
+                <button class="red-alert-toggle"
+                        type="button"
+                        @onclick="ToggleRedAlertAsync">
+                    @(isRedAlert ? "RED ALERT: ON" : "RED ALERT: OFF")
+                </button>
+            </span>
+        </header>
+
+        <div class="lcars-blink-strip">
+            <div class="lcars-blink-segment segment-a"></div>
+            <div class="lcars-blink-segment segment-b"></div>
+            <div class="lcars-blink-segment segment-c"></div>
+        </div>
+
+        <!-- LCARS TICKER -->
+        <div class="lcars-ticker">
+            <div class="lcars-ticker-track">
+                <span>
+                    LCARS STARFLEET OPS • NOE TOVAR-MBA • PORTFOLIO ONLINE • TRAINING • BOOKS • TECHNOLOGY • PRINT • CLOUD •
+                </span>
+                <span>
+                    LCARS STARFLEET OPS • NOE TOVAR-MBA • PORTFOLIO ONLINE • TRAINING • BOOKS • TECHNOLOGY • PRINT • CLOUD •
+                </span>
+            </div>
+        </div>
+
+        <main class="lcars-main">
+            @Body
+        </main>
+
+        <footer class="lcars-footer">
+            <div>
+                Design by Noe Tovar •
+                <a href="https://1drv.ms/b/c/72c34b3ab7178516/EaY20FDVIbhCsBb_8dtE8lYBLDNWD1w-Me0kPQqHEIPcyA?e=Z7RTB3"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Click here to download resume
+                </a>
+            </div>
+
+            <div class="lcars-footer-datetime">
+                @currentDateTime.ToString("MMMM dd, yyyy • hh:mm:ss tt")
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- LCARS Helper Scripts -->
+<script>
+    function lcarsBeep() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = "sine";
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.12);
+        } catch(e) {}
+    }
+
+    async function getClientIp() {
+        try {
+            const res = await fetch("https://api.ipify.org?format=json");
+            const data = await res.json();
+            return data.ip || "";
+        } catch { return ""; }
+    }
+</script>
+
+@code {
+    private bool isRedAlert = false;
+    private DateTime currentDateTime = DateTime.Now;
+    private System.Timers.Timer? _timer;
+
+    protected override void OnInitialized()
+    {
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += (_, __) =>
+        {
+            currentDateTime = DateTime.Now;
+            InvokeAsync(StateHasChanged);
+        };
+        _timer.Start();
+    }
+
+    private async Task ToggleRedAlertAsync()
+    {
+        await JS.InvokeVoidAsync("lcarsBeep");
+        isRedAlert = !isRedAlert;
+    }
+
+    public void Dispose()
+    {
+        _timer?.Stop();
+        _timer?.Dispose();
+    }
+}
