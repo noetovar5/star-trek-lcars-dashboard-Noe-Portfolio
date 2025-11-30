@@ -1,4 +1,5 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
+<img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
 <div align="center">
 <br />
 <img width="2100" height="720" alt="tasktrove-banner" src="https://github.com/noetovar5/portfolio/blob/main/Star%20Trek%20Theme%20Portfolio.jpg" />
