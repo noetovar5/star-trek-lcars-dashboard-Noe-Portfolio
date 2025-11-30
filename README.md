@@ -5,11 +5,11 @@
 <br />
 
 <br />
-<img width="2100" height="620" alt="tasktrove-banner" src="https://github.com/noetovar5/portfolio/blob/main/select%20windows%20logs%20to%20export.jpg" />
+
 <br />
 
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
-Windows Event Log Reporter
+Text Place Holder
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://drive.google.com/file/d/1F_f5zBD3rEeEMkkqLJV_BL4aO_Gia3kC/view" />
