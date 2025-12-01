@@ -1,4 +1,6 @@
+<p align="center">
 # star-trek-lcars-dashboard-Noe-Portfolio
+  
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=js,html,css,git,dotnet,vscode,powershell&perline=12" />
