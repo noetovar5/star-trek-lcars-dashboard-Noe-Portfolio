@@ -1,7 +1,7 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,html,css,git&perline=12" />
+    <img src="https://skillicons.dev/icons?i=js,html,css,git,powershell,vscode&perline=12" />
   </a>
 </p>
 
