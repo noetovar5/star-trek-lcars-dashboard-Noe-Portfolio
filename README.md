@@ -1,9 +1,5 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,html,css,C#,github,azure,vscode,git,powershell,proxmox,visualstudio,vscode,ubuntu,dotnet&perline=12" />
-  </a>
-</p>
+
 <img width="974" height="91" alt="image" src="https://github.com/user-attachments/assets/7ccce9d7-abfe-49db-a0d6-39f0e8348830" />
 
 
