@@ -1,12 +1,12 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,html,css,git,dotnet&perline=12" />
+    <img src="https://skillicons.dev/icons?i=js,html,css,git,dotnet,vscode&perline=12" />
   </a>
 </p>
 
 
-,C#,github,vscode,git,powershell,proxmox,visualstudio,vscode,ubuntu,dotne
+,C#,github,vscode,git,powershell,proxmox,visualstudio,vscode
 
 
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
