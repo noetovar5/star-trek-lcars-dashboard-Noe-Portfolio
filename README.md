@@ -1,4 +1,4 @@
-<p align="center">
+
 # star-trek-lcars-dashboard-Noe-Portfolio
   
 <p align="center">
