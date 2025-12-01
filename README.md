@@ -9,7 +9,7 @@
 
 <br />
 
-<div align="center"> Text Place Holder
+<div align="center"> Watch Video https://github.com/noetovar5/portfolio/blob/main/Star%20Trek%20Themed%20Noe%20Tovar%20Portofolio%20dotnet%20blazor%20app.mp4
 <p align="center">
  
 </p>
