@@ -1,6 +1,6 @@
 # star-trek-lcars-dashboard-Noe-Portfolio
 
-<img width="974" height="91" alt="image" src="https://github.com/user-attachments/assets/7ccce9d7-abfe-49db-a0d6-39f0e8348830" />
+
 
 
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=noetovar5.WindowsEventLogReporter"/>
